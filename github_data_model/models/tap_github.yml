@@ -1,0 +1,21 @@
+version: 2
+
+sources:
+  - name: github
+    database: netlify_takehome
+    schema: tap_github
+    loader: singer-tap-github
+    quoting:
+      database: true
+      schema: false
+      identifier: false
+    
+    tables:
+      - name: assignees
+      - name: collaborators
+      - name: commits
+      - name: event
+      - name: pr_commits
+      - name: pull_requests
+      - name: pull_requests__labels
+      - name: issues
