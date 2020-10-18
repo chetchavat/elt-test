@@ -19,3 +19,4 @@ sources:
       - name: pull_requests
       - name: pull_requests__labels
       - name: issues
+      - name: issue_events
