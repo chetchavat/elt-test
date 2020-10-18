@@ -10,6 +10,6 @@ WITH commits AS (
         , commit__message AS commit_message
         , commit__author__date AS commit_author_date
         , commit__committer__date AS commit_committer_date
-    FROM {{ source('github', 'commits')}}
+    FROM {{ source('github', 'commits') }}
 )
 SELECT * FROM commits

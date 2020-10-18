@@ -8,6 +8,6 @@ WITH pr_commits AS (
         , commit__committer__name AS commit_committer_name
         , commit__committer__email AS commit_committer_email
         , commit__committer__date AS commit_committer_date
-    FROM {{ source('github', 'pr_commits')}}
+    FROM {{ source('github', 'pr_commits') }}
 )
 SELECT * FROM pr_commits

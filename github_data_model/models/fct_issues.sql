@@ -1,6 +1,6 @@
 WITH base AS (
     SELECT
-        id AS issue_id
+        issues.id AS issue_id
         , "number" AS issue_number
         , "state" AS issue_state
         , _sdc_repository AS repository

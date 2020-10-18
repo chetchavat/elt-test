@@ -22,7 +22,7 @@ WITH issue_events AS (
         review_requester__id
         , review_requester__type
         , review_requester__login
-    FROM {{ source('github', 'issue_events')}}
+    FROM {{ source('github', 'issue_events') }}
 
     UNION
 
@@ -30,7 +30,7 @@ WITH issue_events AS (
         assignee__id
         , assignee__type
         , assignee__login
-    FROM {{ source('github', 'issue_events')}}
+    FROM {{ source('github', 'issue_events') }}
 )
 SELECT
     *
