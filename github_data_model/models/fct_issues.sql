@@ -10,10 +10,12 @@ WITH base AS (
             , CONCAT('https://api.github.com/repos/', _sdc_repository, '/pulls/')
             , 2) AS pull_request_number
         , user__id AS user_id
+        , issue_labels."name" AS label_name
         , created_at 
         , closed_at
         , updated_at
     FROM {{ source('github', 'issues') }} AS issues
+    LEFT JOIN {{ source('github', 'issue__labels')}} AS issue_labels
 )
 SELECT
     *

@@ -9,6 +9,7 @@ WITH base AS (
         , name AS label_name
         , description AS label_description
         , user__id AS user_id
+        , merged_at IS NOT NULL AS is_merged
         , created_at
         , merged_at
         , closed_at
