@@ -15,7 +15,7 @@ WITH base AS (
         , closed_at
         , updated_at
     FROM {{ source('github', 'issues') }} AS issues
-    LEFT JOIN {{ source('github', 'issue__labels')}} AS issue_labels
+    LEFT JOIN {{ source('github', 'issues__labels')}} AS issue_labels
 )
 SELECT
     *
