@@ -8,8 +8,8 @@ This document will tell you how to:
 ### Setting up your tap and target
 To do this you will need Python 3.5 or higher (I think, I'm using Python 3.83)
 
-1. the Postgres target uses a different version of singer-python than the GitHub tap, so we will install the tap and target in virtual environments
-    - `deactivate` returns you to your base project
+1. We will need to install the tap and target packages in virtual environments, because `target-postgres` uses a different version of `singer-python` than `tap-github`. 
+    - `deactivate` returns to the base environment
 ```
 python3 -m venv ~/.virtualenvs/tap-github
 source ~/.virtualenvs/tap-github/bin/activate
@@ -17,43 +17,44 @@ pip install tap-github
 
 python3 -m venv ~/.virtualenvs/target-postgres
 source ~/.virtualenvs/target-postgres/bin/activate
-pip install tap-github
+pip install target-postgres
 
 deactivate
 ```
-2. set up [tap-github](https://github.com/singer-io/tap-github)
-    - create a [personal access token](https://github.com/settings/tokens) on GitHub
-    - create a config file
-        - the config contains your access token, and the desired repository to pull data from
-        - an example can be found in `configs/tap-github`
-    - run the tap in discovery mode to get the properties file
-        - this contains the GitHub schema
-        - each Stream roughtly corresponds to a table or set of related tables
-        - any nested relationships will create another table
-    - select the streams you want to pull down
-3. set up [target-postgres](https://github.com/datamill-co/target-postgres)
-    - do you have postgres installed?
-        - do you have dbt installed? yes? you have postgres installed!
-        - if not, instructions can be found on their [website](https://www.postgresql.org/download/)
-    - create your target database
-        - there are many ways to do this, but I used [this tutorial](https://www.robinwieruch.de/postgres-sql-macos-setup) to get me started
-        - at a high level, it was these commands
+2. Set up [tap-github](https://github.com/singer-io/tap-github)
+    - Create a [Personal Access Token](https://github.com/settings/tokens) on GitHub
+    - Create a config file
+        - The config contains your access token, and the desired repository to pull data from
+        - An example can be found in `configs/tap-github`
+    - Run `tap-github` in discovery mode to get the `properties.json` file
+        - This contains the GitHub schema
+        - Each `stream` roughly corresponds to a table or set of related tables
+    - Select the streams you want to pull down
+3. Set up [target-postgres](https://github.com/datamill-co/target-postgres)
+    - Do you have postgres installed?
+        - Do you have dbt installed? Yes? You have postgres installed!
+        - If not, instructions can be found on their [website](https://www.postgresql.org/download/)
+    - Create your target database
+        - There are many ways to do this, but I used [this tutorial](https://www.robinwieruch.de/postgres-sql-macos-setup) to get me started
+        - At a high level, it was these commands
         ```
         initdb /usr/local/var/postgres
         pg_ctl -D /usr/local/var/postgres start
         createdb netlify_takehome
         ```
-    - after this I downloaded [Postico](https://eggerapps.at/postico/), because using a CLI to interact with a database makes me uncomfortable
-    - connect to the database with postico, all you should need to change are the database name to the database you created (`netlify_takehome`)
-    - those same credentials will be used in your target config
-        - an example can be found in `configs/target-postgres`
-4. let it fly
-- run your tap and pipe it to your target with the proper configs
+    - After this I used [Postico](https://eggerapps.at/postico/), because using a CLI to interact with a database makes me uncomfortable
+    - Connect to the database with Postico
+        - All you should need to change from default is the database
+            - Mine is called `netlify_takehome`
+    - Those same credentials will be used in your target config
+        - An example can be found in `configs/target-postgres`
+4. Let it fly
+- Run your tap and pipe it to the target using proper configs
 ```
 ~/.virtualenvs/tap-github/bin/tap-github --config tap-github-config.json --properties properties.json | ~/.virtualenvs/target-postgres/bin/target-postgres --config target-postgres-config.json >> state.json
 ```
 ### Transform the data with dbt
-In this example, we will be using the CLI
+In this example, we will be using the dbt CLI.
 
 
 ### Resources:
