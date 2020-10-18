@@ -25,7 +25,7 @@ deactivate
     - create a [personal access token](https://github.com/settings/tokens) on GitHub
     - create a config file
         - the config contains your access token, and the desired repository to pull data from
-        - name it something specific, like `tap-github-config.json`
+        - an example can be found in `configs/tap-github`
     - run the tap in discovery mode to get the properties file
         - this contains the GitHub schema
         - each Stream roughtly corresponds to a table or set of related tables
@@ -46,7 +46,7 @@ deactivate
     - after this I downloaded [Postico](https://eggerapps.at/postico/), because using a CLI to interact with a database makes me uncomfortable
     - connect to the database with postico, all you should need to change are the database name to the database you created (`netlify_takehome`)
     - those same credentials will be used in your target config
-        - name it well! I chose `target-postgres-config.json`
+        - an example can be found in `configs/target-postgres`
 4. let it fly
 - run your tap and pipe it to your target with the proper configs
 ```
