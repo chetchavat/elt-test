@@ -6,7 +6,7 @@ WITH commits AS (
         , commit__author__name AS commit_author_name
         , commit__author__email AS commit_author_email
         , commit__committer__name AS commit_committer_name
-        , commit__committer_email AS commit_committer_email
+        , commit__committer__email AS commit_committer_email
         , commit__message AS commit_message
         , commit__author__date AS commit_author_date
         , commit__committer__date AS commit_committer_date

@@ -1,9 +1,9 @@
 WITH base AS (
     SELECT 
         _sdc_repository AS repository
-        , id AS pull_request_id
+        , pull_requests.id AS pull_request_id
         , "number" AS pull_request_number
-        , url AS pull_request_url
+        , pull_requests.url AS pull_request_url
         , title AS pull_request_title
         , state AS current_pr_state
         , name AS label_name
