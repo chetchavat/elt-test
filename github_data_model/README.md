@@ -54,12 +54,14 @@ deactivate
 ~/.virtualenvs/tap-github/bin/tap-github --config tap-github-config.json --properties properties.json | ~/.virtualenvs/target-postgres/bin/target-postgres --config target-postgres-config.json >> state.json
 ```
 ### Transform the data with dbt
-In this example, we will be using the dbt CLI.
+In this example, we will be using the dbt CLI, you can check if you have it installed by typing `dbt --version` in the command line. If it isn't installed, [please review their official instructions.](https://docs.getdbt.com/dbt-cli/installation/)
 
+You will need to checkout the repository from GitHub, or receive the files in a `.zip`
 
-### Resources:
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
-- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
-- Join the [chat](http://slack.getdbt.com/) on Slack for live discussions and support
-- Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+Before you can run the transformations you will need to add a connection to the local Postgres database for this model.
+
+If it doesn't exist, create a `profiles.yml` file in the  `~/.dbt/` directory. You can use [this page from the dbt docs](https://docs.getdbt.com/reference/warehouse-profiles/postgres-profile/) as a template. Replate `company-name` with `github_data_model`
+
+Once you have the `profiles.yml` set up, run `dbt debug` to check that your connection works.
+
+Once that is done, you should be able to `dbt run` and create the transformations. To view docs, run `dbt docs generate` and then `dbt docs serve`.
